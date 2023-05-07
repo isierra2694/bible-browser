@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "444d1d2c-8dd1-4c14-95a5-51de735749ca": {
+      "ProjectGuid": "444d1d2c-8dd1-4c14-95a5-51de735749ca",
+      "DisplayName": "BibleBrowser",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}
