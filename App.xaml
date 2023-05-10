@@ -4,6 +4,8 @@
              xmlns:local="clr-namespace:BibleBrowser"
              Startup="BibleBrowserStartup">
     <Application.Resources>
-         
+        <Style TargetType="Button">
+            
+        </Style>
     </Application.Resources>
 </Application>

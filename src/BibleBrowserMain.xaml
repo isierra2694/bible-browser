@@ -21,18 +21,31 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <Button Grid.Column="0">Bible</Button>
-                <Button Grid.Column="1">Verse</Button>
+                <Button Grid.Column="0" Background="#0c0c0c">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Foreground="#d6d6d6" Margin="5,0">Bible</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button Grid.Column="1" Background="#0c0c0c">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Foreground="#d6d6d6" Margin="5,0">Verse</TextBlock>
+                    </StackPanel>
+                </Button>
                 <Button Grid.Column="2" Background="#0c0c0c">
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="/src/icons/search.png" />
                         <TextBlock Foreground="#d6d6d6" Margin="5,0">Search...</TextBlock>
                     </StackPanel>
                 </Button>
             </Grid>
         </Border>
         <Border Grid.Row="1" BorderBrush="#0c0c0c" BorderThickness="3">
-            <Label Foreground="#d6d6d6">The Gospel of John</Label>
+            <FlowDocumentScrollViewer>
+                <FlowDocument>
+                    <Paragraph>
+                        Hello!
+                    </Paragraph>
+                </FlowDocument>
+            </FlowDocumentScrollViewer>
         </Border>
     </Grid>
 </Window>
