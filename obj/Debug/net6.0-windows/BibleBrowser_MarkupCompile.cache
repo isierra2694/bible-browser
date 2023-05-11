@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-D:\Repositories\bible-browser\obj\Debug\net6.0-windows\
+C:\Users\isier\Repositories\bible-browser\obj\Debug\net6.0-windows\
 BibleBrowser
 none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
-D:\Repositories\bible-browser\App.xaml
+C:\Users\isier\Repositories\bible-browser\App.xaml
 1842399690
 
 31994238168
-194-164764702
+194-1617825143
 src\BibleBrowserMain.xaml;
 
 False
