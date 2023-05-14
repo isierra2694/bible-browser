@@ -24,7 +24,7 @@ namespace BibleBrowser
         /// <param name="filePath">Bible path</param>
         /// <param name="listBox">ListBox to append verses to</param>
         /// <exception cref="NullReferenceException"></exception>
-        public async void Load(string filePath, ItemsControl itemsControl)
+        public async void Load(string filePath, FlowDocumentScrollViewer documentViewer)
         {
             if (!File.Exists(filePath)) throw new NullReferenceException();
 
@@ -32,11 +32,18 @@ namespace BibleBrowser
             {
                 var reader = new StreamReader(filePath);
                 string line;
+                FlowDocument bibleDocument = new FlowDocument();
+
                 while ((line = await reader.ReadLineAsync()) != null)
                 {
                     string verse = FormatVerseString(line);
-                    itemsControl.Items.Add(line);
+                    Paragraph paragraph = new Paragraph();
+                    paragraph.Inlines.Add(verse);
+
+                    bibleDocument.Blocks.Add(paragraph);
                 }
+
+                documentViewer.Document = bibleDocument;
             }
             catch (Exception ex)
             {

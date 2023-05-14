@@ -24,15 +24,15 @@ namespace BibleBrowser
         {
             InitializeComponent();
 
-            DisplayBible();
+            //DisplayBible();
         }
 
         private void DisplayBible()
         {
-            VirtualizingPanel.SetIsVirtualizing(BibleDocument, true);
+            //VirtualizingPanel.SetIsVirtualizing(BibleDocumentViewer, true);
 
-            Bible bible = new Bible();
-            bible.Load(@"c:\users\isier\downloads\bible.txt", BibleDocument);
+            //Bible bible = new Bible();
+            //bible.Load(@"c:\users\isier\downloads\bible.txt", BibleDocumentViewer);
         }
     }
 }

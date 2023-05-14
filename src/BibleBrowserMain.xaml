@@ -39,20 +39,7 @@
             </Grid>
         </Border>
         <Border Grid.Row="1" BorderBrush="#0c0c0c" BorderThickness="3">
-            <ListBox Name="BibleDocument" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling" Background="#0c0c0c">
-                <ListBox.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <VirtualizingStackPanel>
-
-                        </VirtualizingStackPanel>
-                    </ItemsPanelTemplate>
-                </ListBox.ItemsPanel>
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding}" Foreground="#d6d6d6" />
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+            
         </Border>
     </Grid>
 </Window>
