@@ -39,7 +39,15 @@
             </Grid>
         </Border>
         <Border Grid.Row="1" BorderBrush="#0c0c0c" BorderThickness="3">
-            
+            <ListBox Name="BibleDocumentViewer" VirtualizingPanel.IsVirtualizing="True" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Background="#0c0c0c">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <TextBlock Text="{Binding}" TextWrapping="Wrap" Foreground="#d6d6d6" FontFamily="Cambria" FontSize="18" />
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </Border>
     </Grid>
 </Window>
