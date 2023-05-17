@@ -15,7 +15,7 @@ namespace BibleBrowser
     {
         public Bible()
         {
-
+            currentVerse = new Verse("", 0, 0, "");
         }
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace BibleBrowser
         /// <param name="filePath">Bible path</param>
         /// <param name="listBox">ListBox to append verses to</param>
         /// <exception cref="NullReferenceException"></exception>
-        public async Task Load(string filePath, ListBox documentViewer)
+        public async Task Load(string filePath, ListView documentViewer)
         {
             if (!File.Exists(filePath)) throw new NullReferenceException();
 
@@ -34,11 +34,11 @@ namespace BibleBrowser
                 {
                     string line;
 
-                    while ((line = await reader.ReadLineAsync()) != null)
-                    {
-                        string verse = FormatVerseString(line);
-                        documentViewer.Items.Add(verse);
-                    }
+                    while ((line = await reader.ReadLineAsync()) != null) ParseVerse(line);
+                }
+                foreach (string line in lines)
+                {
+                    documentViewer.Items.Add(line);
                 }
             }
             catch (Exception ex)
@@ -46,18 +46,30 @@ namespace BibleBrowser
                 Console.WriteLine(ex);
             }
         }
-        private string FormatVerseString(string verse)
+
+        private void ParseVerse(string verse)
         {
             string pattern = @"^(\d*[A-Za-z]+)(\d+):(\d+)\s+(.*)$";
             Match match = Regex.Match(verse, pattern);
             if (match.Success)
             {
-                return bibleBooks[match.Groups[1].Value] + " " + match.Groups[2].Value + ":" + match.Groups[3].Value + " " + match.Groups[4].Value;
+                Verse newVerse = new Verse(match.Groups[1].Value, Int32.Parse(match.Groups[2].Value), Int32.Parse(match.Groups[3].Value), match.Groups[4].Value);
+                if (currentVerse.bookID != newVerse.bookID)
+                {
+                    lines.Add("===== " + bibleBooks[newVerse.bookID] + " =====");
+                }
+                if (currentVerse.chapterNumber != newVerse.chapterNumber)
+                {
+                    lines.Add("Chapter " + newVerse.chapterNumber);
+                }
+                currentVerse = newVerse;
+                lines.Add(currentVerse.verseNumber.ToString() + " " + currentVerse.ToString());
             }
-            else return "Holy Bible, King James Version.";
+            else lines.Add("Holy Bible, King James Version.");
         }
 
-        private ArrayList verses = new ArrayList();
+        private Verse currentVerse;
+        private ArrayList lines = new ArrayList();
         private Dictionary<string, string> bibleBooks = new Dictionary<string, string>()
         {
             { "Ge", "Genesis" },
