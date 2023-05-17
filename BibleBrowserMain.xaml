@@ -1,0 +1,84 @@
+﻿<Window x:Class="BibleBrowser.BibleBrowserMain"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BibleBrowser"
+        mc:Ignorable="d"
+        Title="Bible Browser" Height="720" Width="1280"
+        Background="#0c0c0c">
+    <Window.Resources>
+        <DataTemplate x:Key="VerseTemplate">
+            <TextBlock Text="{Binding Text}" 
+                       TextWrapping="Wrap" 
+                       Foreground="#d6d6d6" 
+                       FontFamily="Cambria"
+                       FontSize="18" 
+                       TextAlignment="Left"/>
+        </DataTemplate>
+        <DataTemplate x:Key="ChapterTitleTemplate">
+            <TextBlock Text="{Binding Text}" 
+                       TextWrapping="Wrap" 
+                       Foreground="#d6d6d6" 
+                       FontFamily="Cambria" 
+                       FontSize="24"
+                       TextAlignment="Center"
+                       Padding="0,20,0,20"/>
+        </DataTemplate>
+        <DataTemplate x:Key="BookTitleTemplate">
+            <TextBlock Text="{Binding Text}"
+                       TextWrapping="Wrap"
+                       Foreground="#d6d6d6"
+                       FontFamily="Cambria"
+                       FontSize="32"
+                       TextAlignment="Center"
+                       Typography.Capitals="AllSmallCaps"
+                       Padding="0,75,0,0"/>
+        </DataTemplate>
+        <local:BibleDocumentTemplateSelector x:Key="BibleDocumentTemplateSelector"
+                                             VerseTemplate="{StaticResource VerseTemplate}"
+                                             ChapterTitleTemplate="{StaticResource ChapterTitleTemplate}"
+                                             BookTitleTemplate="{StaticResource BookTitleTemplate}"/>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" BorderBrush="#0c0c0c" BorderThickness="3">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50" />
+                    <ColumnDefinition Width="50" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="0" Background="#0c0c0c">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Foreground="#d6d6d6" Margin="5,0">Bible</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button Grid.Column="1" Background="#0c0c0c">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Foreground="#d6d6d6" Margin="5,0">Verse</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button Grid.Column="2" Background="#0c0c0c">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Foreground="#d6d6d6" Margin="5,0">Search...</TextBlock>
+                    </StackPanel>
+                </Button>
+            </Grid>
+        </Border>
+        <Border Grid.Row="1" BorderBrush="#0c0c0c" BorderThickness="3" CornerRadius="10">
+            <ListView Name="BibleDocumentViewer" 
+                      VirtualizingPanel.IsVirtualizing="True" 
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                      ItemTemplateSelector="{StaticResource BibleDocumentTemplateSelector}" 
+                      Background="#131316"
+                      Padding="20,0,20,0">
+            </ListView>
+        </Border>
+    </Grid>
+</Window>
