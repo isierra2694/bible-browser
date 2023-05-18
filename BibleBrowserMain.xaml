@@ -12,28 +12,41 @@
             <TextBlock Text="{Binding Text}" 
                        TextWrapping="Wrap" 
                        Foreground="#d6d6d6" 
-                       FontFamily="Cambria"
-                       FontSize="18" 
-                       TextAlignment="Left"/>
+                       FontFamily="Georgia"
+                       FontSize="18"
+                       TextAlignment="Left"
+                       Padding="0,2,0,2"/>
         </DataTemplate>
         <DataTemplate x:Key="ChapterTitleTemplate">
             <TextBlock Text="{Binding Text}" 
                        TextWrapping="Wrap" 
                        Foreground="#d6d6d6" 
-                       FontFamily="Cambria" 
+                       FontFamily="Georgia" 
                        FontSize="24"
+                       FontStyle="Italic"
                        TextAlignment="Center"
                        Padding="0,20,0,20"/>
         </DataTemplate>
         <DataTemplate x:Key="BookTitleTemplate">
-            <TextBlock Text="{Binding Text}"
+            <StackPanel>
+                <TextBlock Text="{Binding Descriptor}"
                        TextWrapping="Wrap"
                        Foreground="#d6d6d6"
-                       FontFamily="Cambria"
+                       FontFamily="Georgia"
+                       FontSize="18"
+                       TextAlignment="Center"
+                       Typography.Capitals="SmallCaps"
+                       Padding="0,75,0,0"/>
+                <TextBlock Text="{Binding Text}"
+                       TextWrapping="Wrap"
+                       Foreground="#d6d6d6"
+                       FontFamily="Georgia"
                        FontSize="32"
                        TextAlignment="Center"
-                       Typography.Capitals="AllSmallCaps"
-                       Padding="0,75,0,0"/>
+                       Typography.Capitals="SmallCaps"
+                       Padding="0,15,0,0"/>
+            </StackPanel>
+            
         </DataTemplate>
         <local:BibleDocumentTemplateSelector x:Key="BibleDocumentTemplateSelector"
                                              VerseTemplate="{StaticResource VerseTemplate}"

@@ -53,14 +53,14 @@ namespace BibleBrowser
             Match match = Regex.Match(verse, pattern);
             if (match.Success)
             {
-                Verse newVerse = new Verse(match.Groups[1].Value, Int32.Parse(match.Groups[2].Value), Int32.Parse(match.Groups[3].Value), match.Groups[4].Value);
+                Verse newVerse = new Verse(match.Groups[1].Value, Int32.Parse(match.Groups[2].Value), Int32.Parse(match.Groups[3].Value), match.Groups[3].Value + " " + match.Groups[4].Value);
                 if (currentVerse.BookID != newVerse.BookID)
                 {
-                    lines.Add(new BookTitle(match.Groups[1].Value, Int32.Parse(match.Groups[2].Value), Int32.Parse(match.Groups[3].Value), "The Book Of " + bibleBooks[match.Groups[1].Value]));
+                    lines.Add(new BookTitle(match.Groups[1].Value, Int32.Parse(match.Groups[2].Value), Int32.Parse(match.Groups[3].Value), "The Book of " + bibleBooks[match.Groups[1].Value], "The First Book of Moses"));
                 }
                 if (currentVerse.ChapterNumber != newVerse.ChapterNumber)
                 {
-                    lines.Add(new ChapterTitle(match.Groups[1].Value, Int32.Parse(match.Groups[2].Value), Int32.Parse(match.Groups[3].Value), "CHAPTER " + Int32.Parse(match.Groups[2].Value)));
+                    lines.Add(new ChapterTitle(match.Groups[1].Value, Int32.Parse(match.Groups[2].Value), Int32.Parse(match.Groups[3].Value), "Chapter " + Int32.Parse(match.Groups[2].Value)));
                 }
                 currentVerse = newVerse;
                 lines.Add(newVerse);
