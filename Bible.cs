@@ -46,26 +46,45 @@ namespace BibleBrowser
                 Console.WriteLine(ex);
             }
         }
+            
+        /// <summary>
+        /// Returns the list of lines in this Bible.
+        /// </summary>
+        /// <returns></returns>
+        public ArrayList GetLines()
+        {
+            return lines;
+        }
 
+        /// <summary>
+        /// Parse the line read from StreamReader and create a verse.
+        /// </summary>
+        /// <param name="verse"></param>
         private void ParseVerse(string verse)
         {
             string pattern = @"^(\d*[A-Za-z]+)(\d+):(\d+)\s+(.*)$";
             Match match = Regex.Match(verse, pattern);
+
             if (match.Success)
             {
-                Verse newVerse = new Verse(match.Groups[1].Value, Int32.Parse(match.Groups[2].Value), Int32.Parse(match.Groups[3].Value), match.Groups[3].Value + " " + match.Groups[4].Value);
+                string bookID = match.Groups[1].Value;
+                int chapterNumber = Int32.Parse(match.Groups[2].Value);
+                int verseNumber = Int32.Parse(match.Groups[3].Value);
+                string verseText = match.Groups[4].Value;
+                
+                Verse newVerse = new Verse(bookID, chapterNumber, verseNumber, verseText);
+                
                 if (currentVerse.BookID != newVerse.BookID)
                 {
-                    lines.Add(new BookTitle(match.Groups[1].Value, Int32.Parse(match.Groups[2].Value), Int32.Parse(match.Groups[3].Value), "The Book of " + bibleBooks[match.Groups[1].Value], "The First Book of Moses"));
+                    lines.Add(new BookTitle(bookID, chapterNumber, verseNumber, "The Book of " + bibleBooks[match.Groups[1].Value], bookDescriptors[match.Groups[1].Value]));
                 }
-                if (currentVerse.ChapterNumber != newVerse.ChapterNumber)
+                if (currentVerse.ChapterNumber != newVerse.ChapterNumber || currentVerse.BookID != newVerse.BookID)
                 {
-                    lines.Add(new ChapterTitle(match.Groups[1].Value, Int32.Parse(match.Groups[2].Value), Int32.Parse(match.Groups[3].Value), "Chapter " + Int32.Parse(match.Groups[2].Value)));
+                    lines.Add(new ChapterTitle(bookID, chapterNumber, verseNumber));
                 }
                 currentVerse = newVerse;
                 lines.Add(newVerse);
             }
-            //else lines.Add("Holy Bible, King James Version.");
         }
 
         private Verse currentVerse;
@@ -138,6 +157,75 @@ namespace BibleBrowser
             { "3Jn", "3 John" },
             { "Jude", "Jude" },
             { "Rev", "Revelation" }
+        };
+        private Dictionary<string, string> bookDescriptors = new Dictionary<string, string>()
+        {
+            { "Ge", "The First Book of Moses" },
+            { "Exo", "The Second Book of Moses" },
+            { "Lev", "The Third Book of Moses" },
+            { "Num", "The Fourth Book of Moses" },
+            { "Deu", "The Fifth Book of Moses" },
+            { "Josh", "Joshua" },
+            { "Jdgs", "Judges" },
+            { "Ruth", "Ruth" },
+            { "1Sm", "The First Book of Kings" },
+            { "2Sm", "The Second Book of Kings" },
+            { "1Ki", "The Third Book of Kings" },
+            { "2Ki", "The Fourth Book of Kings" },
+            { "1Chr", "1 Chronicles" },
+            { "2Chr", "2 Chronicles" },
+            { "Ezra", "Ezra" },
+            { "Neh", "Nehemiah" },
+            { "Est", "Esther" },
+            { "Job", "Job" },
+            { "Psa", "Psalms" },
+            { "Prv", "Proverbs" },
+            { "Eccl", "The Preacher" },
+            { "SSol", "Song of Solomon" },
+            { "Isa", "The Book of the Prophet" },
+            { "Jer", "The Book of the Prophet" },
+            { "Lam", "The Lamentations of Jeremiah" },
+            { "Eze", "The Book of the Prophet" },
+            { "Dan", "Daniel" },
+            { "Hos", "Hosea" },
+            { "Joel", "Joel" },
+            { "Amos", "Amos" },
+            { "Obad", "Obadiah" },
+            { "Jonah", "Jonah" },
+            { "Mic", "Micah" },
+            { "Nahum", "Nahum" },
+            { "Hab", "Habakkuk" },
+            { "Zep", "Zephaniah" },
+            { "Hag", "Haggai" },
+            { "Zec", "Zechariah" },
+            { "Mal", "Malachi" },
+            { "Mat", "The Gospel According to" },
+            { "Mark", "The Gospel According to" },
+            { "Luke", "The Gospel According to" },
+            { "John", "The Gospel According to" },
+            { "Acts", "The Acts of the Apostles" },
+            { "Rom", "The Epistle of Paul the Apostle to the Romans" },
+            { "1Cor", "The First Epistle of Paul the Apostle to the Corinthians" },
+            { "2Cor", "The Second Epistle of Paul the Apostle to the Corinthians" },
+            { "Gal", "The Epistle of Paul the Apostle to the Galatians" },
+            { "Eph", "The Epistle of Paul the Apostle to the Ephesians" },
+            { "Phi", "The Epistle of Paul the Apostle to the Philippians" },
+            { "Col", "The Epistle of Paul the Apostle to the Colossians" },
+            { "1Th", "The First Epistle of Paul the Apostle to the Thessalonians" },
+            { "2Th", "The Second Epistle of Paul the Apostle to the Thessalonians" },
+            { "1Tim", "The First Epistle of Paul the Apostle to Timothy" },
+            { "2Tim", "The Second Epistle of Paul the Apostle to Timothy" },
+            { "Titus", "The Epistle of Paul the Apostle to Titus" },
+            { "Phmn", "The Epistle of Paul the Apostle to Philemon" },
+            { "Heb", "The Epistle of Paul the Apostle to the Hebrews" },
+            { "Jas", "The Epistle of James" },
+            { "1Pet", "The First Epistle of Peter" },
+            { "2Pet", "The Second Epistle of Peter" },
+            { "1Jn", "The First Epistle of John" },
+            { "2Jn", "The Second Epistle of John" },
+            { "3Jn", "The Third Epistle of John" },
+            { "Jude", "The Epistle of Jude" },
+            { "Rev", "The Revelation St. John" }
         };
     }
 }

@@ -72,16 +72,35 @@
                         <TextBlock Foreground="#d6d6d6" Margin="5,0">Bible</TextBlock>
                     </StackPanel>
                 </Button>
-                <Button Grid.Column="1" Background="#0c0c0c">
+                <ToggleButton Name="ToggleVerseButton" Grid.Column="1" Background="#0c0c0c">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Foreground="#d6d6d6" Margin="5,0">Verse</TextBlock>
+                        <Popup Name="VerseSelector" 
+                               IsOpen="{Binding IsChecked, ElementName=ToggleVerseButton}" 
+                               StaysOpen="True">
+                            <Border BorderThickness="1">
+                                <TreeView Name="BibleVersesViewer" 
+                                          VirtualizingPanel.IsVirtualizing="True"
+                                          VirtualizingPanel.VirtualizationMode="Recycling"
+                                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                          Background="#131316">
+                                    <TreeView.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Text}" Foreground="#d6d6d6"/>
+                                        </DataTemplate>
+                                    </TreeView.ItemTemplate>
+                                </TreeView>
+                            </Border>
+                        </Popup>
                     </StackPanel>
-                </Button>
+                    
+                </ToggleButton>
                 <Button Grid.Column="2" Background="#0c0c0c">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Foreground="#d6d6d6" Margin="5,0">Search...</TextBlock>
                     </StackPanel>
                 </Button>
+                
             </Grid>
         </Border>
         <Border Grid.Row="1" BorderBrush="#0c0c0c" BorderThickness="3" CornerRadius="10">

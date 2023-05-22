@@ -8,7 +8,7 @@ namespace BibleBrowser
 {
     public class Verse : BibleText
     {
-        public Verse(string bookID, int chapterNumber, int verseNumber, string text) : base(bookID, chapterNumber, verseNumber, text)
+        public Verse(string bookID, int chapterNumber, int verseNumber, string text) : base(bookID, chapterNumber, verseNumber, verseNumber + "  " + text)
         {
 
         }

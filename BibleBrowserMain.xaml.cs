@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Collections;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -20,19 +21,58 @@ namespace BibleBrowser
     /// </summary>
     public partial class BibleBrowserMain : Window
     {
+        Bible bible;
+
         public BibleBrowserMain()
         {
             InitializeComponent();
 
-            DisplayBible();
+            bible = new Bible();
+
+            InitializeBible();
         }
 
-        private async void DisplayBible()
+        private async void InitializeBible()
         {
             VirtualizingPanel.SetIsVirtualizing(BibleDocumentViewer, true);
 
-            Bible bible = new Bible();
             await bible.Load(@"c:\users\isier\downloads\bible.txt", BibleDocumentViewer);
+            //LoadLinesIntoSelector();
+        }
+
+        private void LoadLinesIntoSelector()
+        {
+            ArrayList lines = bible.GetLines();
+            TreeViewItem lastBook = new TreeViewItem();
+            TreeViewItem lastChapter = new TreeViewItem();
+
+            try
+            {
+                foreach (BibleText item in lines)
+                {
+                    if (item is BookTitle)
+                    {
+                        TreeViewItem newItem = new TreeViewItem() { Header = item.Text };
+                        BibleVersesViewer.Items.Add(newItem);
+                        lastBook = newItem;
+                    }
+                    else if (item is ChapterTitle)
+                    {
+                        TreeViewItem newItem = new TreeViewItem() { Header = item.Text };
+                        lastBook.Items.Add(newItem);
+                        lastChapter = newItem;
+                    }
+                    else if (item is Verse)
+                    {
+                        TreeViewItem newItem = new TreeViewItem() { Header = item.VerseNumber };
+                        lastChapter.Items.Add(newItem);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
         }
     }
 }

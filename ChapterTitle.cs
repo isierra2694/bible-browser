@@ -11,7 +11,7 @@ namespace BibleBrowser
     /// </summary>
     public class ChapterTitle : BibleText
     {
-        public ChapterTitle(string bookID, int chapterNumber, int verseNumber, string text) : base(bookID, chapterNumber, verseNumber, text)
+        public ChapterTitle(string bookID, int chapterNumber, int verseNumber) : base(bookID, chapterNumber, verseNumber, "Chapter " + chapterNumber)
         {
             
         }

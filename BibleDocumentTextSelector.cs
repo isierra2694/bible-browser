@@ -16,15 +16,15 @@ namespace BibleBrowser
 
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
-            if (item is Verse verse)
+            if (item is Verse)
             {
                 return VerseTemplate;
             }
-            else if (item is ChapterTitle chapterTitle)
+            else if (item is ChapterTitle)
             {
                 return ChapterTitleTemplate;
             }
-            else if (item is BookTitle bookTitle)
+            else if (item is BookTitle)
             {
                 return BookTitleTemplate;
             }
