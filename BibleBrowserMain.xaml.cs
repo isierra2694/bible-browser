@@ -37,14 +37,13 @@ namespace BibleBrowser
             VirtualizingPanel.SetIsVirtualizing(BibleDocumentViewer, true);
 
             await bible.Load(@"c:\users\isier\downloads\bible.txt", BibleDocumentViewer);
-            //LoadLinesIntoSelector();
+            LoadLinesIntoSelector();
         }
 
         private void LoadLinesIntoSelector()
         {
             ArrayList lines = bible.GetLines();
             TreeViewItem lastBook = new TreeViewItem();
-            TreeViewItem lastChapter = new TreeViewItem();
 
             try
             {
@@ -60,12 +59,6 @@ namespace BibleBrowser
                     {
                         TreeViewItem newItem = new TreeViewItem() { Header = item.Text };
                         lastBook.Items.Add(newItem);
-                        lastChapter = newItem;
-                    }
-                    else if (item is Verse)
-                    {
-                        TreeViewItem newItem = new TreeViewItem() { Header = item.VerseNumber };
-                        lastChapter.Items.Add(newItem);
                     }
                 }
             }
