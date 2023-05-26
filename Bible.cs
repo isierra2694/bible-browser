@@ -36,9 +36,9 @@ namespace BibleBrowser
 
                     while ((line = await reader.ReadLineAsync()) != null) ParseVerse(line);
                 }
-                foreach (object line in lines)
+                foreach (KeyValuePair<(string, int, int), BibleText> line in lines)
                 {
-                    documentViewer.Items.Add(line);
+                    documentViewer.Items.Add(line.Value);
                 }
             }
             catch (Exception ex)
@@ -51,7 +51,7 @@ namespace BibleBrowser
         /// Returns the list of lines in this Bible.
         /// </summary>
         /// <returns></returns>
-        public ArrayList GetLines()
+        public Dictionary<(string, int, int), BibleText> GetLines()
         {
             return lines;
         }
@@ -76,19 +76,19 @@ namespace BibleBrowser
                 
                 if (currentVerse.BookID != newVerse.BookID)
                 {
-                    lines.Add(new BookTitle(bookID, chapterNumber, verseNumber, "The Book of " + bibleBooks[match.Groups[1].Value], bookDescriptors[match.Groups[1].Value]));
+                    lines.Add((bookID, chapterNumber - 1, verseNumber - 1), new BookTitle(bookID, chapterNumber, verseNumber, "The Book of " + bibleBooks[match.Groups[1].Value], bookDescriptors[match.Groups[1].Value]));
                 }
                 if (currentVerse.ChapterNumber != newVerse.ChapterNumber || currentVerse.BookID != newVerse.BookID)
                 {
-                    lines.Add(new ChapterTitle(bookID, chapterNumber, verseNumber));
+                    lines.Add((bookID, chapterNumber, verseNumber - 1), new ChapterTitle(bookID, chapterNumber, verseNumber));
                 }
                 currentVerse = newVerse;
-                lines.Add(newVerse);
+                lines.Add((bookID, chapterNumber, verseNumber), newVerse);
             }
         }
 
         private Verse currentVerse;
-        private ArrayList lines = new ArrayList();
+        private Dictionary<(string, int, int), BibleText> lines = new Dictionary<(string, int, int), BibleText>();
         private Dictionary<string, string> bibleBooks = new Dictionary<string, string>()
         {
             { "Ge", "Genesis" },
@@ -165,44 +165,44 @@ namespace BibleBrowser
             { "Lev", "The Third Book of Moses" },
             { "Num", "The Fourth Book of Moses" },
             { "Deu", "The Fifth Book of Moses" },
-            { "Josh", "Joshua" },
-            { "Jdgs", "Judges" },
-            { "Ruth", "Ruth" },
+            { "Josh", "" },
+            { "Jdgs", "" },
+            { "Ruth", "" },
             { "1Sm", "The First Book of Kings" },
             { "2Sm", "The Second Book of Kings" },
             { "1Ki", "The Third Book of Kings" },
             { "2Ki", "The Fourth Book of Kings" },
             { "1Chr", "1 Chronicles" },
             { "2Chr", "2 Chronicles" },
-            { "Ezra", "Ezra" },
-            { "Neh", "Nehemiah" },
-            { "Est", "Esther" },
-            { "Job", "Job" },
-            { "Psa", "Psalms" },
-            { "Prv", "Proverbs" },
-            { "Eccl", "The Preacher" },
-            { "SSol", "Song of Solomon" },
-            { "Isa", "The Book of the Prophet" },
-            { "Jer", "The Book of the Prophet" },
+            { "Ezra", "" },
+            { "Neh", "" },
+            { "Est", "" },
+            { "Job", "" },
+            { "Psa", "" },
+            { "Prv", "" },
+            { "Eccl", "" },
+            { "SSol", "" },
+            { "Isa", "The Book of the Prophet Isaiah" },
+            { "Jer", "The Book of the Prophet Jeremiah" },
             { "Lam", "The Lamentations of Jeremiah" },
-            { "Eze", "The Book of the Prophet" },
-            { "Dan", "Daniel" },
-            { "Hos", "Hosea" },
-            { "Joel", "Joel" },
-            { "Amos", "Amos" },
-            { "Obad", "Obadiah" },
-            { "Jonah", "Jonah" },
-            { "Mic", "Micah" },
-            { "Nahum", "Nahum" },
-            { "Hab", "Habakkuk" },
-            { "Zep", "Zephaniah" },
-            { "Hag", "Haggai" },
-            { "Zec", "Zechariah" },
-            { "Mal", "Malachi" },
-            { "Mat", "The Gospel According to" },
-            { "Mark", "The Gospel According to" },
-            { "Luke", "The Gospel According to" },
-            { "John", "The Gospel According to" },
+            { "Eze", "The Book of the Prophet Ezekiel" },
+            { "Dan", "" },
+            { "Hos", "" },
+            { "Joel", "" },
+            { "Amos", "" },
+            { "Obad", "" },
+            { "Jonah", "" },
+            { "Mic", "" },
+            { "Nahum", "" },
+            { "Hab", "" },
+            { "Zep", "" },
+            { "Hag", "" },
+            { "Zec", "" },
+            { "Mal", "" },
+            { "Mat", "The Gospel According to Matthew" },
+            { "Mark", "The Gospel According to Mark" },
+            { "Luke", "The Gospel According to Luke" },
+            { "John", "The Gospel According to John" },
             { "Acts", "The Acts of the Apostles" },
             { "Rom", "The Epistle of Paul the Apostle to the Romans" },
             { "1Cor", "The First Epistle of Paul the Apostle to the Corinthians" },

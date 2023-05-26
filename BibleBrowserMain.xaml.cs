@@ -42,22 +42,22 @@ namespace BibleBrowser
 
         private void LoadLinesIntoSelector()
         {
-            ArrayList lines = bible.GetLines();
+            Dictionary<(string, int, int), BibleText> lines = bible.GetLines();
             TreeViewItem lastBook = new TreeViewItem();
 
             try
             {
-                foreach (BibleText item in lines)
+                foreach (KeyValuePair<(string, int, int), BibleText> item in lines)
                 {
-                    if (item is BookTitle)
+                    if (item.Value is BookTitle)
                     {
-                        TreeViewItem newItem = new TreeViewItem() { Header = item.Text };
+                        TreeViewItem newItem = new TreeViewItem() { Header = item.Value.Text };
                         BibleVersesViewer.Items.Add(newItem);
                         lastBook = newItem;
                     }
-                    else if (item is ChapterTitle)
+                    else if (item.Value is ChapterTitle)
                     {
-                        TreeViewItem newItem = new TreeViewItem() { Header = item.Text };
+                        TreeViewItem newItem = new TreeViewItem() { Header = item.Value.Text };
                         lastBook.Items.Add(newItem);
                     }
                 }

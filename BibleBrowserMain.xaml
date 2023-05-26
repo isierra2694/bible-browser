@@ -46,7 +46,6 @@
                        Typography.Capitals="SmallCaps"
                        Padding="0,15,0,0"/>
             </StackPanel>
-            
         </DataTemplate>
         <local:BibleDocumentTemplateSelector x:Key="BibleDocumentTemplateSelector"
                                              VerseTemplate="{StaticResource VerseTemplate}"
@@ -85,9 +84,9 @@
                                           ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                           Background="#131316">
                                     <TreeView.ItemTemplate>
-                                        <DataTemplate>
+                                        <HierarchicalDataTemplate>
                                             <TextBlock Text="{Binding Text}" Foreground="#d6d6d6"/>
-                                        </DataTemplate>
+                                        </HierarchicalDataTemplate>
                                     </TreeView.ItemTemplate>
                                 </TreeView>
                             </Border>
