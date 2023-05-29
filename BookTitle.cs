@@ -13,9 +13,12 @@ namespace BibleBrowser
         /// </summary>
         public string Descriptor { get; set; }
 
+        public List<ChapterTitle> Chapters { get; set; }
+
         public BookTitle(string bookID, int chapterNumber, int verseNumber, string text, string descriptor = "") : base(bookID, chapterNumber, verseNumber, text)
         {
             this.Descriptor = descriptor;
+            Chapters = new List<ChapterTitle>();
         }
     }
 }

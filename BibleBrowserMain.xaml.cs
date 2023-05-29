@@ -42,30 +42,13 @@ namespace BibleBrowser
 
         private void LoadLinesIntoSelector()
         {
-            Dictionary<(string, int, int), BibleText> lines = bible.GetLines();
-            TreeViewItem lastBook = new TreeViewItem();
+            BibleVersesViewer.ItemsSource = bible.Books;
+        }
 
-            try
-            {
-                foreach (KeyValuePair<(string, int, int), BibleText> item in lines)
-                {
-                    if (item.Value is BookTitle)
-                    {
-                        TreeViewItem newItem = new TreeViewItem() { Header = item.Value.Text };
-                        BibleVersesViewer.Items.Add(newItem);
-                        lastBook = newItem;
-                    }
-                    else if (item.Value is ChapterTitle)
-                    {
-                        TreeViewItem newItem = new TreeViewItem() { Header = item.Value.Text };
-                        lastBook.Items.Add(newItem);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-            }
+        private void onLocationClicked(object sender, MouseButtonEventArgs e)
+        {
+            TreeViewItem item = sender as TreeViewItem;
+            BibleDocumentViewer.ScrollIntoView(item.Header);
         }
     }
 }

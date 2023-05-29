@@ -76,16 +76,25 @@
                         <TextBlock Foreground="#d6d6d6" Margin="5,0">Verse</TextBlock>
                         <Popup Name="VerseSelector" 
                                IsOpen="{Binding IsChecked, ElementName=ToggleVerseButton}" 
-                               StaysOpen="True">
+                               StaysOpen="True"
+                               MaxHeight="500">
                             <Border BorderThickness="1">
-                                <TreeView Name="BibleVersesViewer" 
+                                <TreeView Name="BibleVersesViewer"
+                                          ItemsSource="{Binding Books}"
                                           VirtualizingPanel.IsVirtualizing="True"
                                           VirtualizingPanel.VirtualizationMode="Recycling"
                                           ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                           Background="#131316">
+                                    <TreeView.ItemContainerStyle>
+                                        <Style TargetType="{x:Type TreeViewItem}">
+                                            <EventSetter Event="PreviewMouseDown" Handler="onLocationClicked"/>
+                                        </Style>
+                                    </TreeView.ItemContainerStyle>
                                     <TreeView.ItemTemplate>
-                                        <HierarchicalDataTemplate>
-                                            <TextBlock Text="{Binding Text}" Foreground="#d6d6d6"/>
+                                        <HierarchicalDataTemplate ItemsSource="{Binding Chapters}">
+                                            <StackPanel>
+                                                <TextBlock Text="{Binding Text}" Foreground="#d6d6d6"/>
+                                            </StackPanel>
                                         </HierarchicalDataTemplate>
                                     </TreeView.ItemTemplate>
                                 </TreeView>

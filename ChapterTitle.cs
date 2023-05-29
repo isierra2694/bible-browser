@@ -11,9 +11,11 @@ namespace BibleBrowser
     /// </summary>
     public class ChapterTitle : BibleText
     {
+        public List<Verse> Verses { get; set; }
+
         public ChapterTitle(string bookID, int chapterNumber, int verseNumber) : base(bookID, chapterNumber, verseNumber, "Chapter " + chapterNumber)
         {
-            
+            Verses = new List<Verse>();
         }
     }
 }

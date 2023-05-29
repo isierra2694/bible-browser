@@ -16,6 +16,7 @@ namespace BibleBrowser
         public Bible()
         {
             currentVerse = new Verse("", 0, 0, "");
+            Books = new List<BookTitle>();
         }
 
         /// <summary>
@@ -76,18 +77,28 @@ namespace BibleBrowser
                 
                 if (currentVerse.BookID != newVerse.BookID)
                 {
-                    lines.Add((bookID, chapterNumber - 1, verseNumber - 1), new BookTitle(bookID, chapterNumber, verseNumber, "The Book of " + bibleBooks[match.Groups[1].Value], bookDescriptors[match.Groups[1].Value]));
+                    BookTitle newBook = new BookTitle(bookID, chapterNumber, verseNumber, "The Book of " + bibleBooks[match.Groups[1].Value], bookDescriptors[match.Groups[1].Value]);
+                    lines.Add((bookID, chapterNumber - 1, verseNumber - 1), newBook);
+                    Books.Add(newBook);
+                    currentBook = newBook;
                 }
                 if (currentVerse.ChapterNumber != newVerse.ChapterNumber || currentVerse.BookID != newVerse.BookID)
                 {
-                    lines.Add((bookID, chapterNumber, verseNumber - 1), new ChapterTitle(bookID, chapterNumber, verseNumber));
+                    ChapterTitle newChapter = new ChapterTitle(bookID, chapterNumber, verseNumber);
+                    lines.Add((bookID, chapterNumber, verseNumber - 1), newChapter);
+                    currentBook.Chapters.Add(newChapter);
+                    currentChapter = newChapter;
                 }
                 currentVerse = newVerse;
+                currentChapter.Verses.Add(currentVerse);
                 lines.Add((bookID, chapterNumber, verseNumber), newVerse);
             }
         }
 
         private Verse currentVerse;
+        private ChapterTitle currentChapter;
+        private BookTitle currentBook;
+        public List<BookTitle> Books { get; private set; }
         private Dictionary<(string, int, int), BibleText> lines = new Dictionary<(string, int, int), BibleText>();
         private Dictionary<string, string> bibleBooks = new Dictionary<string, string>()
         {
