@@ -89,10 +89,70 @@ namespace BibleBrowser
                     currentBook.Chapters.Add(newChapter);
                     currentChapter = newChapter;
                 }
+
                 currentVerse = newVerse;
                 currentChapter.Verses.Add(currentVerse);
+                IndexVerse(currentVerse);
                 lines.Add((bookID, chapterNumber, verseNumber), newVerse);
             }
+        }
+        
+        private void IndexVerse(Verse verse)
+        {
+            string verseString = verse.Text;
+
+            var regex = new Regex(@"\b[\s,\.-:;]*");
+            var words = regex.Split(verseString).Where(x => !string.IsNullOrEmpty(x));
+
+            foreach(string word in words)
+            {
+                if (!wordIndex.ContainsKey(word))
+                {
+                    List<Verse> newList = new List<Verse>();
+                    newList.Add(verse);
+                    wordIndex.Add(word, newList);
+                }
+                else
+                {
+                    Verse lastIndex = wordIndex[word][wordIndex[word].Count - 1];
+
+                    if (lastIndex.Equals(verse))
+                    {
+                        continue;
+                    }
+
+                    wordIndex[word].Add(verse);
+                }
+            }
+        }
+
+        public List<Verse> Search(string query)
+        {
+            var regex = new Regex(@"\b[\s,\.-:;]*");
+            var words = regex.Split(query).Where(x => !string.IsNullOrEmpty(x)).ToList();
+
+            if (words.Count == 1)
+            {
+                if (wordIndex.ContainsKey(query))
+                {
+                    return wordIndex[query];
+                }
+            }
+            else
+            {
+                List<Verse> verses = wordIndex[words[0]];
+                List<Verse> matches = new List<Verse>();
+                foreach (Verse verse in verses)
+                {
+                    if (verse.Text.Contains(query))
+                    {
+                        matches.Add(verse);
+                    }
+                }
+                return matches;
+            }
+
+            return new List<Verse>();
         }
 
         private Verse currentVerse;
@@ -100,6 +160,7 @@ namespace BibleBrowser
         private BookTitle currentBook;
         public List<BookTitle> Books { get; private set; }
         private Dictionary<(string, int, int), BibleText> lines = new Dictionary<(string, int, int), BibleText>();
+        private Dictionary<string, List<Verse>> wordIndex = new Dictionary<string, List<Verse>>();
         private Dictionary<string, string> bibleBooks = new Dictionary<string, string>()
         {
             { "Ge", "Genesis" },

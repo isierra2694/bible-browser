@@ -50,5 +50,18 @@ namespace BibleBrowser
             TreeViewItem item = sender as TreeViewItem;
             BibleDocumentViewer.ScrollIntoView(item.Header);
         }
+
+        private void OnSearchKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+            {
+                List<Verse> verses = bible.Search(SearchTextBox.Text);
+                if (verses.Count > 0)
+                {
+                    BibleSearchResultsViewer.ItemsSource = verses;
+                    BibleSearchResultsViewer.Visibility = Visibility.Visible;
+                }
+            }
+        }
     }
 }

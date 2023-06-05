@@ -103,21 +103,40 @@
                     </StackPanel>
                     
                 </ToggleButton>
-                <Button Grid.Column="2" Background="#0c0c0c">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Foreground="#d6d6d6" Margin="5,0">Search...</TextBlock>
-                    </StackPanel>
-                </Button>
-                
+                <TextBox Name="SearchTextBox" KeyDown="OnSearchKeyDown" Padding="10,10,10,10" Foreground="#d6d6d6" Grid.Column="2" Background="#0c0c0c">
+                    <local:WatermarkService.Watermark>
+                        <TextBlock Foreground="#d6d6d6">Search...</TextBlock>
+                    </local:WatermarkService.Watermark>
+                </TextBox>
             </Grid>
         </Border>
-        <Border Grid.Row="1" BorderBrush="#0c0c0c" BorderThickness="3" CornerRadius="10">
+        <Border Grid.Row="1" BorderBrush="#0c0c0c" BorderThickness="3">
             <ListView Name="BibleDocumentViewer" 
                       VirtualizingPanel.IsVirtualizing="True" 
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
                       ItemTemplateSelector="{StaticResource BibleDocumentTemplateSelector}" 
                       Background="#131316"
                       Padding="20,0,20,0">
+            </ListView>
+        </Border>
+        <Border Grid.Row="1" BorderBrush="#0c0c0c" BorderThickness="3">
+            <ListView Name="BibleSearchResultsViewer"
+                      VirtualizingPanel.IsVirtualizing="True"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                      Background="#131316"
+                      Padding="20,0,20,0"
+                      Visibility="Collapsed">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Text}" 
+                           TextWrapping="Wrap" 
+                           Foreground="#d6d6d6" 
+                           FontFamily="Georgia"
+                           FontSize="18"
+                           TextAlignment="Left"
+                           Padding="0,2,0,2" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
             </ListView>
         </Border>
     </Grid>

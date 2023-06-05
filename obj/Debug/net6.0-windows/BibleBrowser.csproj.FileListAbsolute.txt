@@ -43,3 +43,4 @@ D:\Repositories\bible-browser\obj\Debug\net6.0-windows\BibleBrowserMain.baml
 C:\Users\isier\Repositories\bible-browser\obj\Debug\net6.0-windows\BibleBrowserMain.g.cs
 C:\Users\isier\Repositories\bible-browser\obj\Debug\net6.0-windows\GeneratedInternalTypeHelper.g.cs
 C:\Users\isier\Repositories\bible-browser\obj\Debug\net6.0-windows\BibleBrowserMain.baml
+D:\Repositories\bible-browser\obj\Debug\net6.0-windows\BibleBrowser.csproj.AssemblyReference.cache
