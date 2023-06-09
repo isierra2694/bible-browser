@@ -8,7 +8,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="img\bible.png" />
+    <None Remove="img\book.png" />
+    <None Remove="img\search.png" />
+    <None Remove="img\search.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Page Include="App.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="img\bible.png" />
+    <Resource Include="img\search.png" />
+    <Resource Include="img\search.svg" />
   </ItemGroup>
 
 </Project>

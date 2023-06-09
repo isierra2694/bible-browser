@@ -97,6 +97,10 @@ namespace BibleBrowser
             }
         }
         
+        /// <summary>
+        /// Index each word inside a verse.
+        /// </summary>
+        /// <param name="verse"></param>
         private void IndexVerse(Verse verse)
         {
             string verseString = verse.Text;
@@ -126,6 +130,11 @@ namespace BibleBrowser
             }
         }
 
+        /// <summary>
+        /// Search for a query (string) inside the Bible.
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
         public List<Verse> Search(string query)
         {
             var regex = new Regex(@"\b[\s,\.-:;]*");

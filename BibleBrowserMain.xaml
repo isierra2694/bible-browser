@@ -54,26 +54,24 @@
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50" />
+            <RowDefinition Height="40" />
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <Border Grid.Row="0" BorderBrush="#0c0c0c" BorderThickness="3">
+        <Border Grid.Row="0" BorderBrush="#0c0c0c" BorderThickness="3" CornerRadius="5">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="50" />
-                    <ColumnDefinition Width="50" />
+                    <ColumnDefinition Width="35" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-
-                <Button Grid.Column="0" Background="#0c0c0c">
+                <ToggleButton Name="ToggleVerseButton" Grid.Column="0" Background="#0c0c0c" BorderBrush="#0c0c0c">
+                    <ToggleButton.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="5"/>
+                        </Style>
+                    </ToggleButton.Resources>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Foreground="#d6d6d6" Margin="5,0">Bible</TextBlock>
-                    </StackPanel>
-                </Button>
-                <ToggleButton Name="ToggleVerseButton" Grid.Column="1" Background="#0c0c0c">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Foreground="#d6d6d6" Margin="5,0">Verse</TextBlock>
+                        <Image Source="/img/bible.png" Width="20" RenderOptions.BitmapScalingMode="HighQuality"/>
                         <Popup Name="VerseSelector" 
                                IsOpen="{Binding IsChecked, ElementName=ToggleVerseButton}" 
                                StaysOpen="True"
@@ -101,13 +99,25 @@
                             </Border>
                         </Popup>
                     </StackPanel>
-                    
                 </ToggleButton>
-                <TextBox Name="SearchTextBox" KeyDown="OnSearchKeyDown" Padding="10,10,10,10" Foreground="#d6d6d6" Grid.Column="2" Background="#0c0c0c">
-                    <local:WatermarkService.Watermark>
-                        <TextBlock Foreground="#d6d6d6">Search...</TextBlock>
-                    </local:WatermarkService.Watermark>
-                </TextBox>
+                <Grid Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="35" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Image Source="/img/search.png" Width="20" RenderOptions.BitmapScalingMode="HighQuality"/>
+                    <TextBox Name="SearchTextBox" KeyDown="OnSearchKeyDown" Padding="10,10,10,10" Foreground="#d6d6d6" Grid.Column="2" Background="#0c0c0c">
+                        <TextBox.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="5" />
+                            </Style>
+                        </TextBox.Resources>
+                        <local:WatermarkService.Watermark>
+                            <TextBlock Foreground="#d6d6d6">Search...</TextBlock>
+                        </local:WatermarkService.Watermark>
+                    </TextBox>
+                </Grid>
+                
             </Grid>
         </Border>
         <Border Grid.Row="1" BorderBrush="#0c0c0c" BorderThickness="3">
@@ -116,7 +126,15 @@
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
                       ItemTemplateSelector="{StaticResource BibleDocumentTemplateSelector}" 
                       Background="#131316"
+                      BorderBrush="#0c0c0c"
                       Padding="20,0,20,0">
+                <ListView.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                        <Setter Property="BorderThickness" Value="3" />
+                        <Setter Property="BorderBrush" Value="#0c0c0c" />
+                    </Style>
+                </ListView.Resources>
             </ListView>
         </Border>
         <Border Grid.Row="1" BorderBrush="#0c0c0c" BorderThickness="3">
