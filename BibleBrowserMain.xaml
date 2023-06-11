@@ -192,13 +192,16 @@
                           Padding="20,0,20,0">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Text}" 
-                           TextWrapping="Wrap" 
-                           Foreground="#d6d6d6" 
-                           FontFamily="Georgia"
-                           FontSize="18"
-                           TextAlignment="Left"
-                           Padding="0,2,0,2" />
+                            <TextBlock TextWrapping="Wrap" 
+                                       Foreground="#d6d6d6" 
+                                       FontFamily="Georgia"
+                                       FontSize="18"
+                                       TextAlignment="Left"
+                                       Padding="0,2,0,2">
+                                    <Run Text="{Binding FormattedVerse}" />
+                                    <Run Text=" " />
+                                    <Run Text="{Binding VerseText}" />
+                            </TextBlock>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                     <ListView.Resources>

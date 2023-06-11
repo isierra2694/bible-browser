@@ -8,10 +8,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="src\**" />
+    <EmbeddedResource Remove="src\**" />
+    <None Remove="src\**" />
+    <Page Remove="src\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="img\bible.png" />
     <None Remove="img\book.png" />
     <None Remove="img\search.png" />
-    <None Remove="src\bible.txt" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,10 +30,6 @@
     <Resource Include="bible.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="src\" />
   </ItemGroup>
 
 	<ItemGroup>

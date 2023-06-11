@@ -8,18 +8,14 @@ namespace BibleBrowser
 {
     public class Verse : BibleText
     {
-        public Verse(string bookID, int chapterNumber, int verseNumber, string text) : base(bookID, chapterNumber, verseNumber, verseNumber + "  " + text)
-        {
+        public string FormattedVerse { get; set; }
 
-        }
+        public string VerseText { get; set; }
 
-        /// <summary>
-        /// Returns the verse text as a string.
-        /// </summary>
-        /// <returns></returns>
-        public string ToVerseString()
+        public Verse(string bookID, int chapterNumber, int verseNumber, string text, string fullTitle) : base(bookID, chapterNumber, verseNumber, verseNumber + "  " + text)
         {
-            return this.Text;
+            this.FormattedVerse = fullTitle + " " + chapterNumber + ":" + verseNumber;
+            this.VerseText = text;
         }
 
         /// <summary>

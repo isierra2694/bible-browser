@@ -15,7 +15,7 @@ namespace BibleBrowser
     {
         public Bible()
         {
-            currentVerse = new Verse("", 0, 0, "");
+            currentVerse = new Verse("", 0, 0, "", "");
             Books = new List<BookTitle>();
         }
 
@@ -71,7 +71,7 @@ namespace BibleBrowser
                 int verseNumber = Int32.Parse(match.Groups[3].Value);
                 string verseText = match.Groups[4].Value;
                 
-                Verse newVerse = new Verse(bookID, chapterNumber, verseNumber, verseText);
+                Verse newVerse = new Verse(bookID, chapterNumber, verseNumber, verseText, bibleBooks[match.Groups[1].Value]);
                 
                 if (currentVerse.BookID != newVerse.BookID)
                 {
