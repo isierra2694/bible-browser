@@ -25,10 +25,8 @@ namespace BibleBrowser
         /// <param name="filePath">Bible path</param>
         /// <param name="listBox">ListBox to append verses to</param>
         /// <exception cref="NullReferenceException"></exception>
-        public async Task Load(string filePath, ListView documentViewer)
+        public async Task Load(Stream filePath, ListView documentViewer)
         {
-            if (!File.Exists(filePath)) throw new NullReferenceException();
-
             try
             {
                 using (var reader = new StreamReader(filePath))
@@ -137,6 +135,8 @@ namespace BibleBrowser
         /// <returns></returns>
         public List<Verse> Search(string query)
         {
+            if (query == "") return new List<Verse>();
+
             var regex = new Regex(@"\b[\s,\.-:;]*");
             var words = regex.Split(query).Where(x => !string.IsNullOrEmpty(x)).ToList();
 

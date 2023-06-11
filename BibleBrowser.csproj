@@ -11,7 +11,7 @@
     <None Remove="img\bible.png" />
     <None Remove="img\book.png" />
     <None Remove="img\search.png" />
-    <None Remove="img\search.svg" />
+    <None Remove="src\bible.txt" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,7 +21,17 @@
   <ItemGroup>
     <Resource Include="img\bible.png" />
     <Resource Include="img\search.png" />
-    <Resource Include="img\search.svg" />
+    <Resource Include="bible.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="src\" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<Resource Include="bible.txt" />
+	</ItemGroup>
 
 </Project>

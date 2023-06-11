@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Reflection;
 
 namespace BibleBrowser
 {
@@ -36,7 +37,8 @@ namespace BibleBrowser
         {
             VirtualizingPanel.SetIsVirtualizing(BibleDocumentViewer, true);
 
-            await bible.Load(@"c:\users\isier\downloads\bible.txt", BibleDocumentViewer);
+            Uri uri = new Uri("/bible.txt", UriKind.Relative);
+            await bible.Load(Application.GetResourceStream(uri).Stream, BibleDocumentViewer);
             LoadLinesIntoSelector();
         }
 
@@ -56,12 +58,15 @@ namespace BibleBrowser
             if (e.Key == Key.Return)
             {
                 List<Verse> verses = bible.Search(SearchTextBox.Text);
-                if (verses.Count > 0)
-                {
-                    BibleSearchResultsViewer.ItemsSource = verses;
-                    BibleSearchResultsViewer.Visibility = Visibility.Visible;
-                }
+                SearchResultsTitle.Text = "Search results for '" + SearchTextBox.Text + "' (" + verses.Count + " results)";
+                BibleSearchResultsViewer.ItemsSource = verses;
+                BibleSearchResultsPanel.Visibility = Visibility.Visible;
             }
+        }
+
+        private void OnSearchCancelClicked(object sender, RoutedEventArgs e)
+        {
+            BibleSearchResultsPanel.Visibility = Visibility.Collapsed;
         }
     }
 }

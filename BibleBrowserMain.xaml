@@ -9,42 +9,58 @@
         Background="#0c0c0c">
     <Window.Resources>
         <DataTemplate x:Key="VerseTemplate">
-            <TextBlock Text="{Binding Text}" 
-                       TextWrapping="Wrap" 
-                       Foreground="#d6d6d6" 
-                       FontFamily="Georgia"
-                       FontSize="18"
-                       TextAlignment="Left"
-                       Padding="0,2,0,2"/>
+            <TextBox Text="{Binding Text, Mode=OneWay}"
+                     TextWrapping="Wrap"
+                     Cursor="Arrow"
+                     IsReadOnly="True"
+                     BorderThickness="0"
+                     Foreground="#d6d6d6"
+                     Background="#131316"
+                     FontFamily="Georgia"
+                     FontSize="18"
+                     TextAlignment="Left"
+                     Padding="0,2,0,2"/>
         </DataTemplate>
         <DataTemplate x:Key="ChapterTitleTemplate">
-            <TextBlock Text="{Binding Text}" 
-                       TextWrapping="Wrap" 
-                       Foreground="#d6d6d6" 
-                       FontFamily="Georgia" 
-                       FontSize="24"
-                       FontStyle="Italic"
-                       TextAlignment="Center"
-                       Padding="0,20,0,20"/>
+            <TextBox Text="{Binding Text, Mode=OneWay}"
+                     TextWrapping="Wrap"
+                     Cursor="Arrow"
+                     IsReadOnly="True"
+                     BorderThickness="0"
+                     Foreground="#d6d6d6"
+                     Background="#131316"
+                     FontFamily="Georgia" 
+                     FontSize="24"
+                     FontStyle="Italic"
+                     TextAlignment="Center"
+                     Padding="0,20,0,20"/>
         </DataTemplate>
         <DataTemplate x:Key="BookTitleTemplate">
             <StackPanel>
-                <TextBlock Text="{Binding Descriptor}"
-                       TextWrapping="Wrap"
-                       Foreground="#d6d6d6"
-                       FontFamily="Georgia"
-                       FontSize="18"
-                       TextAlignment="Center"
-                       Typography.Capitals="SmallCaps"
-                       Padding="0,75,0,0"/>
-                <TextBlock Text="{Binding Text}"
-                       TextWrapping="Wrap"
-                       Foreground="#d6d6d6"
-                       FontFamily="Georgia"
-                       FontSize="32"
-                       TextAlignment="Center"
-                       Typography.Capitals="SmallCaps"
-                       Padding="0,15,0,0"/>
+                <TextBox Text="{Binding Descriptor, Mode=OneWay}"
+                         TextWrapping="Wrap"
+                         Cursor="Arrow"
+                         IsReadOnly="True"
+                         BorderThickness="0"
+                         Foreground="#d6d6d6"
+                         Background="#131316"
+                         FontFamily="Georgia"
+                         FontSize="18"
+                         TextAlignment="Center"
+                         Typography.Capitals="SmallCaps"
+                         Padding="0,75,0,0"/>
+                <TextBox Text="{Binding Text, Mode=OneWay}"
+                         TextWrapping="Wrap"
+                         Cursor="Arrow"
+                         IsReadOnly="True"
+                         BorderThickness="0"
+                         Foreground="#d6d6d6"
+                         Background="#131316"
+                         FontFamily="Georgia"
+                         FontSize="32"
+                         TextAlignment="Center"
+                         Typography.Capitals="SmallCaps"
+                         Padding="0,15,0,0"/>
             </StackPanel>
         </DataTemplate>
         <local:BibleDocumentTemplateSelector x:Key="BibleDocumentTemplateSelector"
@@ -106,14 +122,14 @@
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <Image Source="/img/search.png" Width="20" RenderOptions.BitmapScalingMode="HighQuality"/>
-                    <TextBox Name="SearchTextBox" KeyDown="OnSearchKeyDown" Padding="10,10,10,10" Foreground="#d6d6d6" Grid.Column="2" Background="#0c0c0c">
+                    <TextBox Name="SearchTextBox" KeyDown="OnSearchKeyDown" Padding="10,8,10,0" Foreground="#d6d6d6" Grid.Column="2" Background="#0c0c0c">
                         <TextBox.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="5" />
                             </Style>
                         </TextBox.Resources>
                         <local:WatermarkService.Watermark>
-                            <TextBlock Foreground="#d6d6d6">Search...</TextBlock>
+                            <TextBlock Padding="3,0,0,0" Foreground="#d6d6d6">Search...</TextBlock>
                         </local:WatermarkService.Watermark>
                     </TextBox>
                 </Grid>
@@ -135,27 +151,77 @@
                         <Setter Property="BorderBrush" Value="#0c0c0c" />
                     </Style>
                 </ListView.Resources>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListViewItem}">
+                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                    <ContentPresenter />
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListView.ItemContainerStyle>
             </ListView>
         </Border>
-        <Border Grid.Row="1" BorderBrush="#0c0c0c" BorderThickness="3">
-            <ListView Name="BibleSearchResultsViewer"
-                      VirtualizingPanel.IsVirtualizing="True"
-                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                      Background="#131316"
-                      Padding="20,0,20,0"
-                      Visibility="Collapsed">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Text}" 
+        <Border Grid.Row="1" BorderBrush="#0c0c0c" BorderThickness="3" Name="BibleSearchResultsPanel" Visibility="Collapsed">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="50"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Name="SearchResultsTitle"
+                               Background="#0c0c0c"
+                               Foreground="#d6d6d6"
+                               Padding="10,5,10,5"></TextBlock>
+                    <Button Click="OnSearchCancelClicked"
+                            Grid.Column="1"
+                            Background="#0c0c0c"
+                            Foreground="#d6d6d6">Cancel</Button>
+                </Grid>
+                <ListView Grid.Row="1" Name="BibleSearchResultsViewer"
+                          VirtualizingPanel.IsVirtualizing="True"
+                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                          Background="#131316"
+                          Padding="20,0,20,0">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Text}" 
                            TextWrapping="Wrap" 
                            Foreground="#d6d6d6" 
                            FontFamily="Georgia"
                            FontSize="18"
                            TextAlignment="Left"
                            Padding="0,2,0,2" />
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                    <ListView.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="5"/>
+                            <Setter Property="BorderThickness" Value="3" />
+                            <Setter Property="BorderBrush" Value="#0c0c0c" />
+                        </Style>
+                    </ListView.Resources>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListViewItem}">
+                            <Setter Property="Background" Value="Transparent" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                        <ContentPresenter />
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                </ListView>
+            </Grid>
         </Border>
     </Grid>
 </Window>
