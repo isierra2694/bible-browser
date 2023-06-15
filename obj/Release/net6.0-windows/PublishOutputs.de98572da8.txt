@@ -1,0 +1,5 @@
+D:\Repositories\bible-browser\bin\publish\BibleBrowser.exe
+D:\Repositories\bible-browser\bin\publish\BibleBrowser.dll
+D:\Repositories\bible-browser\bin\publish\BibleBrowser.deps.json
+D:\Repositories\bible-browser\bin\publish\BibleBrowser.runtimeconfig.json
+D:\Repositories\bible-browser\bin\publish\BibleBrowser.pdb

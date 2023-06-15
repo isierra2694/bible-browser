@@ -117,7 +117,7 @@ namespace BibleBrowser {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/BibleBrowser;component/biblebrowsermain.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/BibleBrowser;V1.0.0.0;component/biblebrowsermain.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\BibleBrowserMain.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
